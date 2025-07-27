@@ -22,7 +22,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/swagger-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(routers);
 
@@ -35,7 +35,7 @@ app.use((req, res) => {
   });
 });
 
-const port = parseInt(process.env.PORT as string) || 5500;
+const port = parseInt(process.env.PORT as string) || 3000;
 
 redis.connect().catch(console.error);
 

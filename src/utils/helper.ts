@@ -18,7 +18,7 @@ export const comparePassword = async (password: string, hash: string): Promise<b
     return await bcrypt.compare(password, hash);
 }
 
-export const secretKey = process.env.JWT_SECRET || "SecretKey";
+export const secretKey = process.env.SESSION_SECRET || "helloSolvit";
 
 export const generateToken = async ({id, email, role}: { id: string; email: string; role: string }): Promise<string> => {
     const payload = { id, email, role };

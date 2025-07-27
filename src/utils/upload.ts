@@ -8,7 +8,7 @@ config();
 
 const cloudinary_api_key = process.env.CLOUDINARY_API_KEY;
 const cloudinary_api_secret = process.env.CLOUDINARY_API_SECRET;
-const cloudinary_api_cloud_name = process.env.CLOUDINARY_API_NAME;
+const cloudinary_api_cloud_name = process.env.CLOUDINARY_CLOUD_NAME;
 
 cloudinary.config({
   cloud_name: cloudinary_api_cloud_name,
