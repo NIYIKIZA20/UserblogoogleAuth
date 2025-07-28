@@ -6,5 +6,5 @@ import { Router } from "express";
 
 const routers = Router();
 const allRoutes = [userRouter, blogRouter, commentRouter];
-routers.use('/api/v2', ...allRoutes);
+routers.use('/api', ...allRoutes);
 export { routers };

@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Blog Management API",
+    "title": "Blog managemnet server ",
     "version": "1.0.0",
-    "description": "A comprehensive API for managing blogs, users, and comments with JWT authentication",
+    "description": "A  simple blog managemnt api with google authentication",
     "contact": {
       "name": "API Support",
-      "email": "aimegetz@gmail.com"
+      "email": "jbniyikiza20@gmail.com"
     },
     "license": {
       "name": "MIT",
@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5500/api/v2",
+      "url": "http://localhost:3000/api",
       "description": "Development server"
     }
   ],
