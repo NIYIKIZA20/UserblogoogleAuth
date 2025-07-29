@@ -57,14 +57,15 @@ export const getAllBlogs = async (req: Request, res: Response) => {
             });
         }
 
-        ResponseService<GetAllBlogs>({
-            data: { blogs },
+        ResponseService({
+            data: blogs,
             status: 200,
             success: true,
             message: "Blogs retrieved successfully",
             res
-        });
-    } catch (err) {
+        })
+    }
+      catch (err) {
         const { message, stack } = err as Error;
         console.error('Error getting all blogs:', { message, stack });
         
@@ -191,7 +192,6 @@ export const createBlog = async (req: IRequestBlog, res: Response) => {
         
         ResponseService({
             data: newBlog,
-            // data:null,
             status: 201,
             success: true,
             message: "Blog created successfully",

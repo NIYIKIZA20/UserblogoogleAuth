@@ -4,8 +4,7 @@ import { prefix, userResponse } from "./setup"
 import supertest from "supertest"
 import { app } from "../src/server"
 const request = supertest(app)
-describe('create A user', () => {
-    describe('Starting from 400', () => {
+
 describe('create A user', () => {
     describe('Starting from 400', () => {
         it('having an unexpected column', async () => {
@@ -19,6 +18,7 @@ describe('create A user', () => {
                 })
             expect(res.status).toBe(400)
             expect(res.body.message).toContain('role')
+            expect(res.body.success).toBe(false)
         })
         it('create user successfully', async () => {
             const res = await request.post(`${prefix}users`)
@@ -30,6 +30,7 @@ describe('create A user', () => {
                 })
             expect(res.status).toBe(201)
             expect(res.body.success).toBe(true)
+            expect(res.body.message).toBe('User added successfully')
             expect(res.body.data).toHaveProperty('id')
         })
         it('user already exists', async () => {
@@ -40,10 +41,9 @@ describe('create A user', () => {
                     password: 'Password12345',
                     gender: 'male',
                 })
-            expect(res.status).toBe(400)
-            expect(res.body.message).toBe('User Already Exists')
-        })
-    })
+            expect(res.status).toBe(409)
+            expect(res.body.message).toBe('User already exists')
+            expect(res.body.success).toBe(false)
         })
     })
 })

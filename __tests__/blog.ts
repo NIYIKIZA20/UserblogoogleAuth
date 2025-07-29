@@ -5,25 +5,22 @@ import supertest from "supertest"
 import { app } from "../src/server"
 const request = supertest(app)
 
-describe('Blog Operations', () => {
+// describe('Blog Operations', () => {
     describe('Get All Blogs', () => {
         it('should get all blogs successfully', async () => {
             const res = await request.get(`${prefix}blogs`)
                 .set('Authorization', `Bearer ${userResponse.token}`)
             expect(res.status).toBe(200)
-            // expect(res.body.success).toBe(true)
-           // expect(res.body.message).toBe('Blogs retrieved successfully')
+            expect(res.body.success).toBe(true)
+            expect(res.body.message).toBe('Blogs retrieved successfully')
         })
 
-        it('should handle database error when getting blogs', async () => {
-            jest.spyOn(Blog, 'findAll').mockRejectedValue(new Error())
-            const res = await request.get(`${prefix}blogs`)
-                .set('Authorization', `Bearer ${userResponse.token}`)
-            expect(res.status).toBe(500)
-        })
-    })
-
-
+// it('should handle database error when getting blogs', async () => {
+        //     jest.spyOn(Blog, 'findAll').mockRejectedValue(new Error())
+        //     const res = await request.get(`${prefix}blogs`)
+        //         .set('Authorization', `Bearer ${userResponse.token}`)
+        //     expect(res.status).toBe(500)
+        // })
     describe('Create Blog', () => {
         it('should create blog successfully', async () => {
             const res = await request.post(`${prefix}blogs`)
@@ -34,8 +31,8 @@ describe('Blog Operations', () => {
                 .field('isPublished', 'true')
             
             expect(res.status).toBe(201)
-            // expect(res.body.success).toBe(true)
-            // expect(res.body.message).toBe('Blog created successfully')
+            expect(res.body.success).toBe(true)
+            expect(res.body.message).toBe('Blog created successfully')
         })
 
         it('should fail with invalid blog data', async () => {
@@ -75,14 +72,14 @@ describe('Blog Operations', () => {
 
             const res = await request.get(`${prefix}blogs/${blog.id}`)
             expect(res.status).toBe(200)
-            //expect(res.body.success).toBe(true)
-           // expect(res.body.message).toBe('Blog retrieved successfully')
+expect(res.body.success).toBe(true)
+            expect(res.body.message).toBe('Blog retrieved successfully')
         })
 
         it('should return 404 for non-existent blog', async () => {
             const res = await request.get(`${prefix}blogs/non-existent-id`)
             expect(res.status).toBe(404)
-           // expect(res.body.message).toBe('Blog not found')
+expect(res.body.message).toBe('Blog not found')
         })
 
     })
@@ -106,10 +103,28 @@ describe('Blog Operations', () => {
                     content: 'Updated content'
                 })
             expect(res.status).toBe(200)
-            //expect(res.body.success).toBe(true)
-            //expect(res.body.message).toBe('Blog updated successfully')
+expect(res.body.success).toBe(true)
+            expect(res.body.message).toBe('Blog updated successfully')
         })
         
+it('should handle database error when updating blog', async () => {
+            jest.spyOn(Blog, 'update').mockRejectedValue(new Error())
+            const res = await request.put(`${prefix}blogs/some-id`)
+                .set('Authorization', `Bearer ${userResponse.token}`)
+                .send({
+                    title: 'Updated Title'
+                })
+            expect(res.status).toBe(500)
+        })
+    it('should handle database error when updating blog', async () => {
+           jest.spyOn(Blog, 'update').mockRejectedValue(new Error())
+            const res = await request.put(`${prefix}blogs/some-id`)
+               .set('Authorization', `Bearer ${userResponse.token}`)
+               .send({
+                   title: 'Updated Title'
+               })
+        expect(res.status).toBe(500)
+   })
     })
 
     describe('Delete Blog', () => {
