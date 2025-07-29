@@ -13,15 +13,15 @@ export const redis = createClient({
 });
 
 redis.on('connect', () => {
-    console.log('Connected to Redis');
+    // console.log('Connected to Redis');
 });
 
-redis.on('error', (err) => {
-    console.error('Redis connection error:', err);
-});
+// redis.on('error', (err) => {
+//     console.error('Redis connection error:', err);
+// });
 
-redis.on('ready', () => {
-    console.log('Redis client ready');
-});
+// redis.on('ready', () => {
+//     console.log('Redis client ready');
+// });
 
 export default redis;
