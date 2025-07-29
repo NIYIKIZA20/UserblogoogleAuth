@@ -714,8 +714,8 @@ TN:
 SF:src\utils\redis.ts
 FN:15,(anonymous_0)
 FNF:1
-FNH:1
-FNDA:1,(anonymous_0)
+FNH:0
+FNDA:0,(anonymous_0)
 DA:4,3
 DA:6,3
 DA:15,3

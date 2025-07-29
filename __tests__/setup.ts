@@ -36,16 +36,17 @@ afterAll(async () => {
     }
 })
 describe('Login with admin token', () => {
-    it('Login Succefully', async () => {
+    it('Login Successfully', async () => {
         const res = await request.post(`${prefix}login`).send({
             email: 'admin@admin.com',
             password: 'Password'
         })
         userResponse.token = res.body.data
-        expect(res.body.message).toEqual('User Logins succesfuly')
+        expect(res.body.message).toEqual('User Logins successfully')
         expect(res.body.success).toBe(true)
     })
-    it('users Doesnt exist', async () => {
+    
+    it('User Does not exist', async () => {
         const res = await request.post(`${prefix}login`).send({
             email: 'admin2@admin.com',
             password: 'Password'
@@ -53,7 +54,8 @@ describe('Login with admin token', () => {
         expect(res.body.message).toEqual("User not found")
         expect(res.status).toBe(404)
     })
-    it('invalid Password', async () => {
+    
+    it('Invalid Password', async () => {
         const res = await request.post(`${prefix}login`).send({
             email: 'admin@admin.com',
             password: 'Passworrd'
@@ -61,7 +63,6 @@ describe('Login with admin token', () => {
         expect(res.body.message).toEqual("Invalid email or password")
         expect(res.status).toBe(401)
     })
-
 })
 
 

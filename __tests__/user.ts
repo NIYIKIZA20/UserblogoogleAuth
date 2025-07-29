@@ -6,19 +6,21 @@ import { app } from "../src/server"
 const request = supertest(app)
 describe('create A user', () => {
     describe('Starting from 400', () => {
-        it('having an unexcepted columbn', async () => {
+describe('create A user', () => {
+    describe('Starting from 400', () => {
+        it('having an unexpected column', async () => {
             const res = await request.post(`${prefix}users`)
                 .send({
                     email: 'jbniyikiza20@gmail.com',
                     name: 'jb',
                     password: 'Password12345',
                     gender: 'male',
-                    role: 'user'
+                    role: 'user' // This should fail as role is not allowed in creation
                 })
             expect(res.status).toBe(400)
+            expect(res.body.message).toContain('role')
         })
-
-        it('create user successfuly', async () => {
+        it('create user successfully', async () => {
             const res = await request.post(`${prefix}users`)
                 .send({
                     email: 'jbniyikiza20@gmail.com',
@@ -27,8 +29,10 @@ describe('create A user', () => {
                     gender: 'male',
                 })
             expect(res.status).toBe(201)
+            expect(res.body.success).toBe(true)
+            expect(res.body.data).toHaveProperty('id')
         })
-        it('user already exist', async () => {
+        it('user already exists', async () => {
             const res = await request.post(`${prefix}users`)
                 .send({
                     email: 'jbniyikiza20@gmail.com',
@@ -37,7 +41,9 @@ describe('create A user', () => {
                     gender: 'male',
                 })
             expect(res.status).toBe(400)
-            //expect(res.body.message).toBe('User Already Exists')
+            expect(res.body.message).toBe('User Already Exists')
+        })
+    })
         })
     })
 })
