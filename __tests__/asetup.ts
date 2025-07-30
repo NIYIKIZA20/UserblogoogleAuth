@@ -35,11 +35,11 @@ afterAll(async () => {
         await sequelize.close()
     }
 })
-describe('Login with admin token', () => {
+describe('Login with admin token', () => {     
     it('Login Successfully', async () => {
         const res = await request.post(`${prefix}login`).send({
-            email: 'admin@admin.com',
-            password: 'Password'
+            email: 'john.doe@example.com',
+            password: 'password'
         })
         userResponse.token = res.body.data
         //expect(res.body.message).toEqual('User Logins successfully')
@@ -57,11 +57,11 @@ describe('Login with admin token', () => {
     
     it('Invalid Password', async () => {
         const res = await request.post(`${prefix}login`).send({
-            email: 'admin@admin.com',
+            email: 'john.doe@example.com',
             password: 'Passworrd'
         })
         //expect(res.body.message).toEqual("Invalid email or password")
-        expect(res.status).toBe(404)
+        expect(res.status).toBe(401)
     })
 })
 
