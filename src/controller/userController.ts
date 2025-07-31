@@ -35,7 +35,7 @@ export const addUser = async (req: IRequestUserData, res: Response) => {
             email,
             password: await hashPassword(password),
             gender,
-        })
+        }) 
         ResponseService<UserInterface>({
             data: newUser,
             status: 201,

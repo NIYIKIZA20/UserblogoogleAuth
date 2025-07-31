@@ -65,14 +65,15 @@ export const getAllBlogs = async (req: Request, res: Response) => {
             res
         })
     }
-      catch (err) {
-        const { message, stack } = err as Error;
-        console.error('Error getting all blogs:', { message, stack });
+    catch (err) {
+        const { message } = err as Error;
+        console.error('Error getting all blogs:', message);
         
         ResponseService({
-            data: { message, stack },
+            data: null,
             status: 500,
             success: false,
+            message: 'Failed to retrieve blogs',
             res
         });
     }
@@ -146,17 +147,25 @@ export const getBlog = async (req: Request, res: Response) => {
 export const createBlog = async (req: IRequestBlog, res: Response) => {
     try {
         const { file } = req;
-        
         const id = req?.user?.id as string;
         const author = await Database.User.findByPk(id);
        
+        if (!author) {
+            return ResponseService({
+                data: null,
+                status: 404,
+                success: false,
+                message: "Author not found",
+                res
+            });
+        }
         const { title, description, isPublished, content } = req.body;
-
         let image_url: string = '';
         
         if (file) {
             try {
               image_url = await uploadFile(file as Express.Multer.File);
+                if (!image_url) throw new Error('Failed to upload image');
             } catch (err) {
               const { message, stack } = err as Error;
               console.error("Error adding image blog:", { message, stack });
