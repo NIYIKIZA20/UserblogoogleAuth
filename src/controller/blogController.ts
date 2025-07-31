@@ -219,6 +219,48 @@ export const createBlog = async (req: IRequestBlog, res: Response) => {
     }
 };
 
+
+// Add to imports
+// import { notifySubscribers } from './subscriptionController';
+// // Update the createBlog function
+// export const createBlog = async (req: IRequestBlog, res: Response) => {
+//     try {
+//         // ... existing code ...
+//         const newBlog = await Database.Blog.create({
+//             title,
+//             description,
+//             isPublished,
+//             content,
+//             slug,
+//             author: id,
+//             blog_image_url: image_url
+//         });
+//         // If blog is published, notify subscribers
+//         if (isPublished) {
+//             await notifySubscribers(newBlog.id);
+//         }
+        
+//         ResponseService({
+//             log,
+//             status: 201,
+//             success: true,
+//             message: "Blog created successfully",
+//             res
+//         });
+//     } catch (err) {
+//         const { message, stack } = err as Error;
+//         console.error('Error creating blog:', { message, stack });
+        
+//         ResponseService({ { message, stack },
+//             status: 500,
+//             success: false,
+//             res
+//         });
+//     }
+// };
+
+
+
 export const updateBlog = async (req: Request, res: Response) => {
     try {
         const [updatedCount] = await Database.Blog.update(req.body, {
