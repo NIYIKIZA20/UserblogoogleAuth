@@ -8,3 +8,8 @@ const routers = Router();
 const allRoutes = [userRouter, blogRouter, commentRouter];
 routers.use('/api', ...allRoutes);
 export { routers };
+
+// Add to imports
+// import { subscriptionRouter } from './subscriptionRoutes';
+// // Add to routers
+// routers.use('/api', subscriptionRouter);
