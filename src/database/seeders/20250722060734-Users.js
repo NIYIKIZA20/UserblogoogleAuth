@@ -17,7 +17,7 @@ module.exports = {
       {
         id: uuidv4(),
         name: 'John Doe',
-        email: 'john.doe@example.com',
+        email: 'johndoe@example.com',
         password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',// password
         role: 'admin',
         gender: 'male',
@@ -26,8 +26,8 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
+        name: 'hello world',
+        email: 'helloworld@example.com',
         password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         role: 'user',
         gender: 'female',
@@ -36,11 +36,11 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: 'Alex Johnson',
-        email: 'alex.johnson@example.com',
+        name: 'Hello Solvit',
+        email: 'hellosolvit@example.com',
         password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         role: 'user',
-        gender: 'other',
+        gender: 'male',
         createdAt: new Date(),
         updatedAt: new Date()
       }

@@ -137,3 +137,71 @@ export const logoutUser = async (req: IRequestUser, res: Response) => {
         });
     }
 }
+export const getSingleUser = async (req: IRequestUser, res: Response) => {
+    try {
+        const userId = req.user.id;
+
+        const user = await Database.User.findByPk(userId);
+        if (!user) {
+            return ResponseService({
+                data: null,
+                status: 404,
+                success: false,
+                message: "User not found",
+                res
+            });
+        }
+
+        ResponseService<UserInterface>({
+            data: user,
+            status: 200,
+            success: true,
+            message: "User profile retrieved successfully",
+            res
+        });
+    } catch (err) {
+        const { message, stack } = err as Error;
+        console.error('Error retrieving user profile:', { message, stack });
+
+        ResponseService({
+            data: { message, stack },
+            status: 500,
+            success: false,
+            res
+        });
+    }
+}
+
+export const getAllUsers = async (req: Request, res: Response) => {
+    try {
+        const users = await Database.User.findAll({
+            attributes: ['id', 'name', 'email', 'role', 'gender', 'profilePicture']
+        });
+        // if (!users || users.length === 0) {
+        //     return ResponseService({
+        //         data: null,
+        //         status: 404,
+        //         success: false,
+        //         message: "No users found",
+        //         res
+        //     });
+        // }
+        ResponseService({
+            data: users,
+            status: 200,
+            success: true,
+            message: "Users retrieved successfully",
+            res
+        });
+    } catch (err) {
+        const { message, stack } = err as Error;
+        ResponseService({
+            message: `Error retrieving users: ${message}`,
+            //stack: stack,
+            data: null, 
+            status: 500,
+            success: false,
+            res
+        });
+    }
+};
