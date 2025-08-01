@@ -11,6 +11,16 @@ const transporter = nodemailer.createTransport({
         pass: process.env.SMTP_PASS
     }
 });
+
+// var transport = nodemailer.createTransport({
+//   host: "live.smtp.mailtrap.io",
+//   port: 587,
+//   auth: {
+//     user: "api",
+//     pass: "<YOUR_API_TOKEN>"
+//   }
+// });
+
 export const sendSubscriptionConfirmation = async (email: string) => {
     try {
         await transporter.sendMail({
