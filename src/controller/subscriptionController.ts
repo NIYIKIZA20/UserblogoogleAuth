@@ -90,12 +90,9 @@ export const notifySubscribers = async (blogId: string) => {
         const activeSubscribers = await Database.Subscription.findAll({
             where: { isActive: true }
         });
-        // Send notification to all active subscribers
+
         for (const subscriber of activeSubscribers) {
-            await sendNewContentNotification(subscriber.email, {
-                title: blog.title,
-                description: blog.description
-            });
+            await sendNewContentNotification(subscriber.email);
         }
     } catch (error) {
         console.error('Error notifying subscribers:', error);

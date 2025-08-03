@@ -39,7 +39,7 @@ export const sendSubscriptionConfirmation = async (email: string):Promise<void> 
 };
 
 
-export const sendUnsubscribeConfirmation = async (email: string): Promise<void> => {
+export const sendNewContentNotification = async (email: string): Promise<void> => {
     try {
         await transporter.sendMail({
             from: process.env.SMTP_FROM,
