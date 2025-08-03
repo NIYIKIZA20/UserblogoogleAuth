@@ -1040,6 +1040,82 @@
           }
         }
       }
+    },
+    "/subscriptions": {
+        "post": {
+            "tags": ["Subscriptions"],
+            "summary": "Create new subscription",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Subscription created successfully"
+                },
+                "400": {
+                    "description": "Invalid email format"
+                },
+                "409": {
+                    "description": "Email already subscribed"
+                }
+            }
+        },
+        "get": {
+            "tags": ["Subscriptions"],
+            "summary": "Get all subscriptions",
+            "security": [{"bearerAuth": []}],
+            "responses": {
+                "200": {
+                    "description": "List of subscriptions"
+                },
+                "403": {
+                    "description": "Admin access required"
+                }
+            }
+        }
+    },
+    "/subscriptions/unsubscribe": {
+        "put": {
+            "tags": ["Subscriptions"],
+            "summary": "Unsubscribe email",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Unsubscribed successfully"
+                },
+                "404": {
+                    "description": "Subscription not found"
+                }
+            }
+        }
     }
   }
 }
