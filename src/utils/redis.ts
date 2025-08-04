@@ -23,11 +23,12 @@ redis.on('error', (err) => {
 /**
  * Subscription-related Redis utility methods
  */
-interface SubscriptionData {
+export interface SubscriptionData {
     email: string;
     isActive: boolean;
     createdAt: Date;
 }
+
 const SUBSCRIPTION_TTL = 24 * 60 * 60; // 24 hours in seconds
 /**
  * Stores a subscription in Redis

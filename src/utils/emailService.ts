@@ -1,6 +1,7 @@
 
 import nodemailer from 'nodemailer';
 import { config } from 'dotenv';
+import { SubscriptionData, storeSubscription, getSubscription, removeSubscription } from './redis';
 config();
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -44,11 +45,13 @@ export const sendSubscriptionConfirmation = async (email: string): Promise<void>
         const info = await transporter.sendMail({
             from: `"Blog Journal" <${process.env.SMTP_USER}>`,
             to: email,
-            subject: 'Welcome to Our blog journal!',
+            subject: 'Welcome to Our Blog Journal!',
             html: `
                 <h1>Thank you for subscribing to our blog!</h1>
-                <p>You will be receiving updates regarding our blog posts.</p>
-                <p>If you wish to unsubscribe, click <a href="${process.env.BASE_URL}/unsubscribe?email=${encodeURIComponent(email)}">here</a>.</p>
+                <p>You will now receive updates about new blog posts and content.</p>
+                <p>Your subscription has been confirmed and stored securely.</p>
+                <p>If you wish to unsubscribe at any time, click <a href="${process.env.BASE_URL}/unsubscribe?email=${encodeURIComponent(email)}">here</a>.</p>
+                <p>Best regards,<br>Blog Journal Team</p>
             `
         });
         console.log('Subscription confirmation sent:', info.messageId);
@@ -71,6 +74,51 @@ export const sendNewContentNotification = async (email: string): Promise<void> =
         });
     } catch (error) {
         console.error('Error sending unsubscribe confirmation:', error);
+        throw error;
+    }
+};
+
+// export const storeSubscriptionData = async (email: string, isActive: boolean = true): Promise<void> => {
+//     try {
+//         const subscriptionData: SubscriptionData = {
+//             email,
+//             isActive,
+//             createdAt: new Date()
+//         };
+//         await storeSubscription(email, subscriptionData);
+//     } catch (error) {
+//         console.error('Error' , error);
+//         throw error;
+//     }
+// };
+export const storeSubscriptionData = async (email: string, isActive: boolean = true): Promise<void> => {
+    try {
+        const subscriptionData: SubscriptionData = {
+            email,
+            isActive,
+            createdAt: new Date()
+        };
+        await storeSubscription(email, subscriptionData);
+    } catch (error) {
+        console.error('Error storing subscription data:', error);
+        throw error;
+    }
+};
+
+export const getSubscriptionStatus = async (email: string): Promise<boolean> => {
+    try {
+        const subscription = await getSubscription(email);
+        return subscription?.isActive ?? false;
+    } catch (error) {
+        console.error('Error getting subscription status:', error);
+        return false;
+    }
+};
+export const removeSubscriptionData = async (email: string): Promise<void> => {
+    try {
+        await removeSubscription(email);
+    } catch (error) {
+        console.error('Error removing',error);
         throw error;
     }
 };
