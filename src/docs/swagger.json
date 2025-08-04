@@ -1041,7 +1041,7 @@
         }
       }
     },
-    "/subscriptions": {
+    "/subscribe": {
         "post": {
             "tags": ["Subscriptions"],
             "summary": "Create new subscription",
@@ -1087,7 +1087,7 @@
             }
         }
     },
-    "/subscriptions/unsubscribe": {
+    "/unsubscribe": {
         "put": {
             "tags": ["Subscriptions"],
             "summary": "Unsubscribe email",

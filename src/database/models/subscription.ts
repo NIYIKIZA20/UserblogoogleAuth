@@ -44,7 +44,7 @@ export const SubscriptionModel = (sequelize: Sequelize) => {
         sequelize,
         timestamps: true,
         modelName: "Subscription",
-        tableName: 'subscriptions'
+        tableName: 'Subscriptions'
     });
     
     return Subscription;

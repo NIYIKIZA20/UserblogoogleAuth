@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import { ResponseService } from "../utils/response";
 import { Database } from '../database';
 import { sendSubscriptionConfirmation, sendNewContentNotification } from '../utils/emailService';
+
 export const subscribe = async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
-        // Check if already subscribed
         const existingSubscription = await Database.Subscription.findOne({
             where: { email }
         });
@@ -18,16 +18,14 @@ export const subscribe = async (req: Request, res: Response) => {
                 res
             });
         }
-        // Create new subscription
         const subscription = await Database.Subscription.create({
             email,
             isActive: true
         });
-        // Send confirmation email
+       
         await sendSubscriptionConfirmation(email);
         ResponseService({
             data: subscription.toJSON(),
-            //stack: null,
             status: 201,
             success: true,
             message: "Successfully subscribed to newsletter",
@@ -37,7 +35,6 @@ export const subscribe = async (req: Request, res: Response) => {
         const { message, stack } = error as Error;
         ResponseService({
             message: message,
-            //stack: stack || null,
             data: null,
             status: 500,
             success: false,
