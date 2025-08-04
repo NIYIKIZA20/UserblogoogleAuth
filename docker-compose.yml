@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=PG
+      - PORT=3000
+      - PGUSER=postgres
+      - PGDATABASE=userauth
+      - PGPASSWORD=Admin
+      - PGHOST=postgres
+      - PGPORT=5433
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD= # Leave blank or use env var if needed
+      - REDIS_DATABASE=0
+      - SESSION_SECRET=helloSolvit
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=465
+      - SMTP_USER=jbniyikiza20@gmail.com
+      - SMTP_PASS=vosviflgoxwdjihv
+      - SMTP_FROM=jbniyikiza20@gmail.com
+      - BASE_URL=http://localhost:3000
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=Admin
+      - POSTGRES_DB=userauth
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  pgdata:
+  redis_data:
