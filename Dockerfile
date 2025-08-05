@@ -8,10 +8,11 @@ COPY package*.json ./
 RUN npm install
 # Copy project files
 COPY . .
+# RUN npm run db:migrate
 # Build TypeScript code
 RUN npm run build
 # Expose port
 EXPOSE 3000
 # Start the application
-# CMD ["npm", "start"]
-CMD ["node", "dist/server.js"]
+CMD ["npm", "start"]
+#CMD ["node", "dist/server.js"]

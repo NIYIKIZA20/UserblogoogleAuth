@@ -17,28 +17,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// const transporter = nodemailer.createTransport({
-//   service: "Gmail",
-//   host: "smtp.gmail.com",
-//   port: 465,
-//   secure: true,
-//   auth: {
-//     user: "your_email@gmail.com",
-//     pass: "your_app_password",
-//   },
-// });
 
-// const transporter = nodemailer.createTransport({
-//     service: "gmail",
-    
-//   auth: {
-//     type: "OAuth2",
-//     user: "jbniyikiza20@gmail.com",
-//     clientId: process.env.GOOGLE_CLIENT_ID,
-//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     //refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-//   },
-// });
 
 export const sendSubscriptionConfirmation = async (email: string): Promise<void> => {
     try {
@@ -78,19 +57,7 @@ export const sendNewContentNotification = async (email: string): Promise<void> =
     }
 };
 
-// export const storeSubscriptionData = async (email: string, isActive: boolean = true): Promise<void> => {
-//     try {
-//         const subscriptionData: SubscriptionData = {
-//             email,
-//             isActive,
-//             createdAt: new Date()
-//         };
-//         await storeSubscription(email, subscriptionData);
-//     } catch (error) {
-//         console.error('Error' , error);
-//         throw error;
-//     }
-// };
+
 export const storeSubscriptionData = async (email: string, isActive: boolean = true): Promise<void> => {
     try {
         const subscriptionData: SubscriptionData = {

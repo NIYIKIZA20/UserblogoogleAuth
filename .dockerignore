@@ -2,7 +2,6 @@ text
 node_modules
 npm-debug.log
 coverage
-.env
 .git
 .gitignore
 README.md

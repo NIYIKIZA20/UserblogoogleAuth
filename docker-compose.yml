@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:15
+    container_name: blog_app
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=Admin
+      - POSTGRES_DB=userauth
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   app:
     build: .
     ports:
@@ -12,7 +25,7 @@ services:
       - PGDATABASE=userauth
       - PGPASSWORD=Admin
       - PGHOST=postgres
-      - PGPORT=5433
+      - PGPORT=5432
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD= # Leave blank or use env var if needed
@@ -27,18 +40,9 @@ services:
     depends_on:
       - postgres
       - redis
+    command: sh -c "npm run db:migrate && npm start"
 
-  postgres:
-    image: postgres:15-alpine
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_USER=postgres 
-      - POSTGRES_PASSWORD=Admin
-      - POSTGRES_DB=userauth
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
+ 
   redis:
     image: redis:alpine
     ports:
